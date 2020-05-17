@@ -1,16 +1,27 @@
 ﻿@model shoprite.GridOfLetter.Models.FiveByFiveLetterModel
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Grid of Letters";
+    Layout = "../Shared/_Layout.cshtml";
 }
 
 <div class="row">
+
     <div class="col-md-12">
-        <h2 style="text-align: center">5*5 Grid of letters</h2>
-        <br />
+        <h2 style="text-align: center;display: none">5*5 Grid Of Letters</h2>
+        <div style="text-align: left; margin-top: -140px; margin-left: -30px;">
+            <img src="~/images/shoprite_logo.png" />
+
+        </div>
         @using (Html.BeginForm("SearchWordsFromFile", "Home", null, FormMethod.Post))
         {
-            <table id="tableGrid" class="table table-hover">
+            <div style="text-align: center">
+                <input type="button" id="regenerate" class="btn btn-block btn-group btn-danger" value="Re-Generate Characters"/>
+                <br/>
+            </div>
+
+            <br/>
+            <table id="tableGrid" class="table table-bordered">
                 @for (var i = 0; i < 5; i++)
                 {
                     <tr>
@@ -22,9 +33,48 @@
                 }
 
             </table>
-            <input type="submit" class="btn btn-block btn-group" value="Search words in file" />
+            <div style="text-align: center">
+                <input type="submit" class="btn btn-block btn-group btn-success" id="search" value="Search for words in file"/>
+            </div>
         }
 
     </div>
-
 </div>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <h2 id="results" style="display: none">Results</h2>
+        <table class="table table-hover" id="words_found">
+            <tr>
+                <th>Word(s) found</th>
+            </tr>
+            @for (var i = 0; i < Model.WordsFound.Count; i++)
+            {
+                <tr>
+                    <td>@Model.WordsFound[i]</td>
+                </tr>
+            }
+        </table>
+        <label class="label-danger" id="lblNoWordsFound" style="display: none"></label>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var totalNumberOfWordsFound = Number(@Model.WordsFound.Count);
+
+        if (totalNumberOfWordsFound === 0) {
+            $("#words_found").attr("style", "display: none;");
+            $("#lblNoWordsFound").val('@Model.NoMatchFound');
+            $("#lblNoWordsFound").attr("style", "display: block;");
+        } else {
+            $("#results").attr("style", "display: block;");
+            $("#search").attr("disabled", "disabled");
+        }
+
+        $("#regenerate").click(function() {
+            window.location.replace("/home");
+        });
+    });
+</script>

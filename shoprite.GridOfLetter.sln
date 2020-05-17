@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shoprite.GridOfLetter", "shoprite.GridOfLetter\shoprite.GridOfLetter.csproj", "{423F381A-CDDC-4881-8850-11E0292E3B06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shoprite.GridOfLetter", "shoprite.GridOfLetter\Shoprite.GridOfLetter.csproj", "{423F381A-CDDC-4881-8850-11E0292E3B06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridOfLetters.UnitTests", "GridOfLetters.UnitTests\GridOfLetters.UnitTests.csproj", "{74ED7F31-813A-4AEA-87BA-031E22ABCA81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridOfLetters.Domain", "GridOfLetters.Domain\GridOfLetters.Domain.csproj", "{6280B7CB-BD1A-4E66-B056-CF6836F80845}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{74ED7F31-813A-4AEA-87BA-031E22ABCA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74ED7F31-813A-4AEA-87BA-031E22ABCA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74ED7F31-813A-4AEA-87BA-031E22ABCA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6280B7CB-BD1A-4E66-B056-CF6836F80845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6280B7CB-BD1A-4E66-B056-CF6836F80845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6280B7CB-BD1A-4E66-B056-CF6836F80845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6280B7CB-BD1A-4E66-B056-CF6836F80845}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

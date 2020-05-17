@@ -124,9 +124,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BuildFiveByFiveGrid.cs" />
-    <Compile Include="Helpers\RandomCharacter.cs" />
+    <Compile Include="Helpers\RandomCharacters.cs" />
     <Compile Include="Helpers\RecursiveSearch.cs" />
+    <Compile Include="Helpers\WordType.cs" />
     <Compile Include="Models\FiveByFiveLetterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -139,6 +139,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\shoprite_logo.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="words.txt" />
@@ -183,6 +184,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GridOfLetters.Domain\GridOfLetters.Domain.csproj">
+      <Project>{6280B7CB-BD1A-4E66-B056-CF6836F80845}</Project>
+      <Name>GridOfLetters.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

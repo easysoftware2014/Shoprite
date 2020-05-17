@@ -1,7 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using System.IO;
 using System.Web.Hosting;
+using GridOfLetters.Domain.Entities;
 using shoprite.GridOfLetter.Helpers;
 using shoprite.GridOfLetter.Models;
 
@@ -11,46 +12,69 @@ namespace shoprite.GridOfLetter.Controllers
     {
 
         private readonly string _filePath = HostingEnvironment.MapPath(@"~/words.txt");
+        private const int RowDimension = 5;
+        private const int ColumnDimension = 5;
+
         public HomeController()
-        {
-            
-        }
+        {}
         public ActionResult Index()
         {
-            var grid = new BuildFiveByFiveGrid();
-            var data = grid.BuildFiveByFiveLetterGrid(5, 5);
+
+            var charArray = GetCharacterArray();
+            TempData["Characters"] = charArray;
+            var model = new FiveByFiveLetterModel(charArray) { WordsFound = new List<string>() };
+
+            return View(model);
+        }
+
+        private char[,] GetCharacterArray()
+        {
+            var grid = new RandomCharacters();
+            var data = grid.GetRandomChar(RowDimension, ColumnDimension);
             var charArray = new char[5, 5];
             var count = 0;
 
-            for (var i = 0; i < 5; i++)
+            for (var i = 0; i < RowDimension; i++)
             {
-                for (var j = 0; j < 5; j++)
+                for (var j = 0; j < ColumnDimension; j++)
                 {
                     charArray[i, j] = data[count];
                     count++;
                 }
             }
 
-            TempData["Characters"] = charArray;
-            var model = new FiveByFiveLetterModel(charArray);
-            
-            return View(model);
+            return charArray;
         }
-
         public ActionResult SearchWordsFromFile()
         {
-            var getTempData = (char[,]) TempData["Characters"] ;
-            
-            if (System.IO.File.Exists(_filePath))
-            {
-                var text = System.IO.File.ReadAllLines(_filePath);
+            var getTempData = (char[,]) TempData["Characters"] ?? GetCharacterArray() ;
+            var searchClass = new RecursiveSearch();
+            var wordsFound = searchClass.ReadFile(_filePath, getTempData, RowDimension, ColumnDimension);
 
-                foreach (var item in text)
+            var entity = new GridLettersSearchResultsEntity
+            {
+                WordsFound = new List<string>()
+            };
+
+            if (wordsFound.Count > 0)
+            {
+                foreach (var word in wordsFound)
                 {
-                    var check = RecursiveSearch.Search(getTempData, item);
+                    var wordFound = word.Key;
+                    var position = word.Value;
+
+                    entity.WordsFound.Add($"{wordFound} found position {position}");
                 }
+
+                entity.CharacterList = getTempData;
             }
-            return View(" ");
+            
+            var model = new FiveByFiveLetterModel(entity);
+
+            if (wordsFound.Count == 0)
+                model.NoMatchFound = "No Match found";
+
+            return View("Index", model);
         }
         public ActionResult About()
         {
