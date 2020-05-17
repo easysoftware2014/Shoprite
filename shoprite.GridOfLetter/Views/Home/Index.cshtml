@@ -1,0 +1,30 @@
+﻿@model shoprite.GridOfLetter.Models.FiveByFiveLetterModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 style="text-align: center">5*5 Grid of letters</h2>
+        <br />
+        @using (Html.BeginForm("SearchWordsFromFile", "Home", null, FormMethod.Post))
+        {
+            <table id="tableGrid" class="table table-hover">
+                @for (var i = 0; i < 5; i++)
+                {
+                    <tr>
+                        @for (var j = 0; j < 5; j++)
+                        {
+                            <td>@Model.CharacterList[i, j]</td>
+                        }
+                    </tr>
+                }
+
+            </table>
+            <input type="submit" class="btn btn-block btn-group" value="Search words in file" />
+        }
+
+    </div>
+
+</div>
